@@ -1,8 +1,11 @@
 package lesson2;
 
+import com.sun.xml.internal.xsom.impl.scd.Iterators;
 import kotlin.NotImplementedError;
 import kotlin.Pair;
 
+import java.sql.Array;
+import java.util.Arrays;
 import java.util.Set;
 
 @SuppressWarnings("unused")
@@ -82,8 +85,23 @@ public class JavaAlgorithms {
      * Х х Х
      */
     static public int josephTask(int menNumber, int choiceInterval) {
-        throw new NotImplementedError();
-    }
+            return josephus(menNumber, choiceInterval, 1);
+        }
+
+        private static int josephus ( int menNumber, int choiceInterval, int startingPoint){
+            if (menNumber == 1 || (choiceInterval == 2 && menNumber % 2 == 1)) return 1;
+            if (choiceInterval == 1) return menNumber;
+
+            int newSp = (startingPoint + choiceInterval - 2) % menNumber + 1;
+
+            int survivor = josephus(menNumber - 1, choiceInterval, newSp);
+
+            if (survivor < newSp) {
+                return survivor;
+            } else
+                return survivor + 1;
+        }
+
 
     /**
      * Наибольшая общая подстрока.
@@ -111,8 +129,25 @@ public class JavaAlgorithms {
      * Единица простым числом не считается.
      */
     static public int calcPrimesNumber(int limit) {
-        throw new NotImplementedError();
+        int res = 0;
+        for (int i = 1; i < limit; i++) {
+            if (isPrime(i))
+                res++;
+        }
+        return res;
     }
+
+    private static boolean isPrime(int n) {
+        if (n % 2 == 0 ) return false;
+        for (int i = 3; i*i <= n; i=i+2) {
+            if (n % i == 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+
 
     /**
      * Балда
