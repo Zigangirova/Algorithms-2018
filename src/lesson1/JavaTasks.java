@@ -37,8 +37,30 @@ public class JavaTasks {
      * <p>
      * В случае обнаружения неверного формата файла бросить любое исключение.
      */
-    static public void sortTimes(String inputName, String outputName) {
-        throw new NotImplementedError();
+    static public void sortTimes(String inputName, String outputName) throws IOException{
+
+        BufferedReader br = new BufferedReader(new FileReader(inputName));
+        FileWriter fw = new FileWriter(outputName);
+        String str;
+        List<Integer> Times = new ArrayList<>();
+
+
+        while ((str = br.readLine()) != null) {
+            String[] time = str.split(":");
+
+            Times.add(Integer.parseInt(String.valueOf(time[0]))*3600+Integer.parseInt(String.valueOf(time[1]))*60
+                    +Integer.parseInt(String.valueOf(time[2])));
+
+        }
+
+        Collections.sort(Times);
+
+        for (int i = 0; i < Times.size(); i++) {
+            int sec = Times.get(i);
+            fw.write(String.format("%02d:%02d:%02d", sec/3600, (sec % 3600)/60, sec % 60)+ "\n");
+        }
+        fw.close();
+
     }
 
     /**
