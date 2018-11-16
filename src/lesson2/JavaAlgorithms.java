@@ -1,6 +1,5 @@
 package lesson2;
 
-import com.sun.xml.internal.xsom.impl.scd.Iterators;
 import kotlin.NotImplementedError;
 import kotlin.Pair;
 
