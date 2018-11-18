@@ -11,7 +11,7 @@ import java.util.*;
 public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implements CheckableSortedSet<T> {
 
     private static class Node<T> {
-        final T value;
+        T value;
 
         Node<T> left = null;
 
@@ -63,11 +63,59 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
     /**
      * Удаление элемента в дереве
      * Средняя
+     * Ресурсоемкость - O(h)
+     * Трудоемкость - O(h)
      */
     @Override
     public boolean remove(Object o) {
-        // TODO
-        throw new NotImplementedError();
+
+        T t = (T) o;
+        Node<T> result = delete(root, t);
+        size--;
+        return (result != null);
+    }
+
+    private Node<T> delete(Node<T> root, T t) {
+
+        Node<T> node = root;
+
+        if (t.compareTo(root.value) > 0) {
+            node.right = delete(root.right, t);
+        }
+
+        else if (t.compareTo(root.value) < 0) {
+            node.left = delete(node.left, t);
+        }
+
+        else if (node.right != null) {
+            node.value = min(node.right).value;
+            node.right = delete(node.right, node.value);
+        }
+
+        else if (node.left != null) {
+            node.value = max(node.left).value;
+            node.left = delete(node.left, node.value);
+        }
+
+        else {
+            node = null;
+        }
+        return node;
+    }
+
+
+    private Node<T> min(Node<T> node) {
+        if (node.left != null) {
+            return min(node.left);
+        }
+        return node;
+    }
+
+    private Node<T> max(Node<T> node) {
+        if (node.right != null) {
+            return max(node.right);
+        }
+        return node;
     }
 
     @Override
@@ -100,28 +148,56 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
 
     public class BinaryTreeIterator implements Iterator<T> {
 
-        private Node<T> current = null;
+        private Node<T> current;
 
-        private BinaryTreeIterator() {}
+        Stack<Node<T>> stack = new Stack<>();
+
+        private BinaryTreeIterator() {
+            current = root;
+            while (current != null) {
+                stack.push(current);
+                current = current.left;
+            }
+        }
 
         /**
          * Поиск следующего элемента
          * Средняя
+         * Ресурсоемкость - O(h)
+         * Трудоемкость - O(h)
          */
         private Node<T> findNext() {
-            // TODO
-            throw new NotImplementedError();
+
+            return stack.pop();
+
         }
 
         @Override
         public boolean hasNext() {
-            return findNext() != null;
+
+            if (stack.isEmpty()){
+             return false;
+            }
+            else return true;
         }
 
         @Override
         public T next() {
+
             current = findNext();
-            if (current == null) throw new NoSuchElementException();
+
+            Node<T> node = current;
+
+            if (node == null) throw new NoSuchElementException();
+
+            if (node.right != null) {
+                node = node.right;
+
+                while (node != null) {
+                    stack.push(node);
+                    node = node.left;
+                }
+            }
             return current.value;
         }
 
