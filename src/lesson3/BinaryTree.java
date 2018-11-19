@@ -191,6 +191,8 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
         /**
          * Удаление следующего элемента
          * Сложная
+         * Ресурсоемкость - O(h)
+         * Трудоемкость - O(h)
          */
         @Override
         public void remove() {
