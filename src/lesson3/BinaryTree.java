@@ -36,12 +36,10 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
         Node<T> newNode = new Node<>(t);
         if (closest == null) {
             root = newNode;
-        }
-        else if (comparison < 0) {
+        } else if (comparison < 0) {
             assert closest.left == null;
             closest.left = newNode;
-        }
-        else {
+        } else {
             assert closest.right == null;
             closest.right = newNode;
         }
@@ -81,23 +79,15 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
 
         if (t.compareTo(root.value) > 0) {
             node.right = delete(root.right, t);
-        }
-
-        else if (t.compareTo(root.value) < 0) {
+        } else if (t.compareTo(root.value) < 0) {
             node.left = delete(node.left, t);
-        }
-
-        else if (node.right != null) {
+        } else if (node.right != null) {
             node.value = min(node.right).value;
             node.right = delete(node.right, node.value);
-        }
-
-        else if (node.left != null) {
+        } else if (node.left != null) {
             node.value = max(node.left).value;
             node.left = delete(node.left, node.value);
-        }
-
-        else {
+        } else {
             node = null;
         }
         return node;
@@ -135,12 +125,10 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
         int comparison = value.compareTo(start.value);
         if (comparison == 0) {
             return start;
-        }
-        else if (comparison < 0) {
+        } else if (comparison < 0) {
             if (start.left == null) return start;
             return find(start.left, value);
-        }
-        else {
+        } else {
             if (start.right == null) return start;
             return find(start.right, value);
         }
@@ -175,10 +163,9 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
         @Override
         public boolean hasNext() {
 
-            if (stack.isEmpty()){
-             return false;
-            }
-            else return true;
+            if (stack.isEmpty()) {
+                return false;
+            } else return true;
         }
 
         @Override
@@ -207,8 +194,9 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
          */
         @Override
         public void remove() {
-            // TODO
-            throw new NotImplementedError();
+            if (current != null) {
+                BinaryTree.this.remove(current.value);
+            }
         }
     }
 
