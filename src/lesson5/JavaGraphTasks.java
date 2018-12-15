@@ -104,7 +104,6 @@ public class JavaGraphTasks {
         Set<Graph.Vertex> result = new HashSet<>();
         Set<Graph.Vertex> compResult = new HashSet<>();
         Set<Graph.Edge> connect = graph.getEdges();
-        Graph.Edge start = null;
 
         for (Graph.Edge v : connect) {
             Graph.Vertex begin = v.getBegin();
