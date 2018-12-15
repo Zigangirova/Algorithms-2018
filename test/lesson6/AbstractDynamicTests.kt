@@ -13,6 +13,8 @@ abstract class AbstractDynamicTests {
                 "oiweijgw kejrhwejelkrw kjhdkfjs hrk",
                 "perhkhk lerkerorwetp lkjklvvd durltr"
         ))
+
+
         assertEquals(""" дд саы чтых,
 евшнео ваа се сви дн.
         """.trimIndent(), longestCommonSubSequence(
@@ -29,6 +31,9 @@ abstract class AbstractDynamicTests {
 Наследник всех своих родных.
                 """.trimIndent()
         ))
+
+        assertEquals("Так чего ж мне е о.", longestCommonSubSequence("Так чего ж мне ее ревновать.",
+                "Так чего ж мне болеть такому."))
     }
 
     fun longestIncreasingSubSequence(longestIncreasingSubSequence: (List<Int>) -> List<Int>) {
@@ -44,6 +49,8 @@ abstract class AbstractDynamicTests {
                 23, 76, 34, 93, 123, 21, 56, 87, 91, 12, 45, 98, 140, 12, 5, 38, 349, 65, 94,
                 45, 76, 15, 99, 100, 88, 84, 35, 88
         )))
+        assertEquals(listOf(-5,-4,0,1),longestIncreasingSubSequence(listOf(-5,-4,0,1)));
+        assertEquals(listOf(-5),longestIncreasingSubSequence(listOf(-5,-6,-7,-10)));
     }
 
     fun shortestPathOnField(shortestPathOnField: (String) -> Int) {
