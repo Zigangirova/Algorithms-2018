@@ -2,6 +2,7 @@ package lesson5;
 
 import kotlin.NotImplementedError;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -92,9 +93,31 @@ public class JavaGraphTasks {
      * В данном случае ответ (A, E, F, D, G, J)
      *
      * Эта задача может быть зачтена за пятый и шестой урок одновременно
-     */
+
+
+    * Трудоемкость О(n)
+    * Ресурсоемкость О(m)
+    * n - количество ребер в графе, m - количество вершин в графе
+    */
+
     public static Set<Graph.Vertex> largestIndependentVertexSet(Graph graph) {
-        throw new NotImplementedError();
+        Set<Graph.Vertex> result = new HashSet<>();
+        Set<Graph.Vertex> compResult = new HashSet<>();
+        Set<Graph.Edge> connect = graph.getEdges();
+        Graph.Edge start = null;
+
+        for (Graph.Edge v : connect) {
+            Graph.Vertex begin = v.getBegin();
+            Graph.Vertex end = v.getEnd();
+            if (result.isEmpty() || !compResult.contains(begin)) {
+                result.add(begin);
+                compResult.add(end);
+            }
+            if (result.contains(v.getBegin())) compResult.add(v.getEnd());
+            if (compResult.contains(v.getBegin())) result.add(v.getEnd());
+        }
+        if (result.size() > compResult.size()) return result;
+        else return compResult;
     }
 
     /**
