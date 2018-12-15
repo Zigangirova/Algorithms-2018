@@ -101,6 +101,7 @@ public class JavaGraphTasks {
     */
 
     public static Set<Graph.Vertex> largestIndependentVertexSet(Graph graph) {
+
         Set<Graph.Vertex> result = new HashSet<>();
         Set<Graph.Vertex> compResult = new HashSet<>();
         Set<Graph.Edge> connect = graph.getEdges();
